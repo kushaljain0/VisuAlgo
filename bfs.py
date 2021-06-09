@@ -234,7 +234,16 @@ def main():
                         if spot == end:
                             spot.show(win, (255, 120, 255))
                             spot.show(win, (255,0,0),0)
-                    
+            if startpoint==False:
+                grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h].show(win,(0,10,100))
+                grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h].show(win, (255,0,0),0)
+            if startpoint and endpoint==False:
+                if grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h]!=start:
+                    grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h].show(win,(255,120,255))
+                    grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h].show(win, (255,0,0),0)   
+            if startpoint and endpoint and startflag==False:
+                if grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h]!=start and grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h]!=end:
+                    grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h].show(win,(0,0,0))
                 
         pygame.display.flip()
 
