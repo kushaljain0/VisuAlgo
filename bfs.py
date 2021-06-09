@@ -101,6 +101,10 @@ def main():
     text2=starttext.render('CREATE NEW MAZE',True,(0,0,0))
 
     while True:
+        if startpoint:
+            start.wall=False
+        if endpoint:
+            end.wall=False
         if startflag==False:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
