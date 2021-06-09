@@ -21,12 +21,16 @@ cols, rows = 64, 48
 w = width//cols
 h = height//rows
 
+# Defining lists for storing the parts of the maze and their property
+# Defining queue for performing BFS
 grid = []
 queue, visited = deque(), []
 path = []
 
-
+# Defining Class which keeps all the data related to individual part of our grid
 class Spot:
+    
+    # Function that defines properties of individual part of grid
     def __init__(self, i, j):
         self.x, self.y = i, j
         self.f, self.g, self.h = 0, 0, 0
@@ -34,15 +38,17 @@ class Spot:
         self.prev = None
         self.wall = False
         self.visited = False
-        
+    
+    # Function for coloring individual part of the grid
     def show(self, win, col, shape= 1):
-        if self.wall == True:
+        if self.wall == True: # Checks whether its a wall or not and changes value of color accordingly
             col = (0, 0, 0)
         if shape == 1:
             pygame.draw.rect(win, col, (self.x*w, self.y*h, w-1, h-1))
         else:
             pygame.draw.circle(win, col, (self.x*w+w//2, self.y*h+h//2), w//3)
     
+    # Function for storing neghbouring individual grid so that they can be accesed afterwards
     def add_neighbors(self, grid):
         if self.x < cols - 1:
             self.neighbors.append(grid[self.x+1][self.y])
@@ -51,7 +57,7 @@ class Spot:
         if self.y < rows - 1:
             self.neighbors.append(grid[self.x][self.y+1])
         if self.y > 0:
-            self.neighbors.append(grid[self.x][self.y-1])
+            self.neighbors.append(grid[self.x][self.y-1]) # Checking for different conditions when the grid is out of bounds
         #Add Diagonals
         # if self.x < cols - 1 and self.y < rows - 1:
         #     self.neighbors.append(grid[self.x+1][self.y+1])
@@ -63,28 +69,25 @@ class Spot:
         #     self.neighbors.append(grid[self.x-1][self.y-1])
 
 
+# Function for storing data related to the walls of the maze
 def clickWall(pos, state):
     i = pos[0] // w
     j = pos[1] // h
     grid[i][j].wall = state
 
-def place(pos):
-    i = pos[0] // w
-    j = pos[1] // h
-    return w, h
-
+# Loop to store coordinates of each individual grid in form of pairs
 for i in range(cols):
     arr = []
     for j in range(rows):
         arr.append(Spot(i, j))
     grid.append(arr)
 
+# Loop to add neighbours near individual grids
 for i in range(cols):
     for j in range(rows):
         grid[i][j].add_neighbors(grid)
 
     
-
 def main():
     randomflag=1
     winflag=False
