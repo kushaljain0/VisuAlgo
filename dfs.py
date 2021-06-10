@@ -1,7 +1,7 @@
 """Depth First Search"""
 
 # Importing Libraries
-import pygame, sys, random, math
+import pygame, sys, random
 from collections import deque
 from tkinter import messagebox, Tk
 
