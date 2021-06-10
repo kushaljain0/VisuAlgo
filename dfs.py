@@ -92,7 +92,7 @@ for i in range(cols):
     
 
 def main():
-    randomflag=1
+    randomflag=0
     winflag=False
     flag = False
     noflag = True
@@ -118,8 +118,7 @@ def main():
                     sys.exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button in (1, 3):
-                        if winflag and randomflag==3 and startpoint and endpoint:
-                            clickWall(pygame.mouse.get_pos(), event.button==1)
+                       
 
                         if event.button == 1:
                             if startpoint and endpoint==False and winflag:
@@ -133,14 +132,18 @@ def main():
                                 stack.append(start)
                                 start.visited= True
 
-                        if 200<=pygame.mouse.get_pos()[0]<=400  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and randomflag==1:
+                        if 200<=pygame.mouse.get_pos()[0]<=400  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and randomflag==0:
                             winflag=True
-                            randomflag=0
+                            randomflag=1
 
 
                         if 740<=pygame.mouse.get_pos()[0]<=1000  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50:
                             winflag=True
                             randomflag=3
+                            
+                         if winflag and randomflag==3 and startpoint and endpoint:
+                            clickWall(pygame.mouse.get_pos(), event.button==1)
+                            
                 elif event.type == pygame.MOUSEMOTION and randomflag==3 and startpoint and endpoint :
                     if event.buttons[0] or event.buttons[2]:
                         clickWall(pygame.mouse.get_pos(),event.buttons[0])
@@ -180,7 +183,7 @@ def main():
 
 
 
-        if randomflag==0:
+        if randomflag==1:
             for i in range(cols):
                 for j in range(rows):
                     if random.randint(0,100) < 20:
