@@ -1,3 +1,4 @@
+
 """Breadth First Search"""
 
 # Importing Libraries
@@ -89,7 +90,7 @@ for i in range(cols):
 
     
 def main():
-    randomflag=1
+    randomflag=0
     winflag=False
     flag = False
     noflag = True
@@ -115,13 +116,13 @@ def main():
                     sys.exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button in (1, 3):
-                        if winflag and randomflag==3 and startpoint and endpoint:
-                            clickWall(pygame.mouse.get_pos(), event.button==1)
+
 
                         if startpoint and endpoint==False and winflag:
                             if event.button == 1:
                                 end=grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h]
                                 endpoint=True
+
                             
                         if startpoint==False and winflag:
                             if event.button == 1:
@@ -130,14 +131,20 @@ def main():
                                 queue.append(start)
                                 start.visited= True
 
-                        if 200<=pygame.mouse.get_pos()[0]<=400  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and randomflag==1:
+                                
+                        if 200<=pygame.mouse.get_pos()[0]<=400  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and randomflag==0:
                             winflag=True
-                            randomflag=0
+                            randomflag=1
 
 
                         if 740<=pygame.mouse.get_pos()[0]<=1000  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50:
                             winflag=True
                             randomflag=3
+                            
+                            
+                        if winflag and randomflag==3 and startpoint and endpoint:
+                            clickWall(pygame.mouse.get_pos(), event.button==1)
+                            
                 elif event.type == pygame.MOUSEMOTION and randomflag==3 and startpoint and endpoint :
                     if event.buttons[0] or event.buttons[2]:
                         clickWall(pygame.mouse.get_pos(),event.buttons[0])
@@ -175,9 +182,9 @@ def main():
 
         win.blit(text2,(760,height/2+12))
 
+        
 
-
-        if randomflag==0:
+        if randomflag==1:
             for i in range(cols):
                 for j in range(rows):
                     if random.randint(0,100) < 20:
@@ -234,6 +241,8 @@ def main():
                         if spot == end:
                             spot.show(win, (255, 120, 255))
                             spot.show(win, (255,0,0),0)
+
+                            
             if startpoint==False:
                 grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h].show(win,(0,10,100))
                 grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h].show(win, (255,0,0),0)
@@ -243,10 +252,8 @@ def main():
                     grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h].show(win, (255,0,0),0)   
             if startpoint and endpoint and startflag==False:
                 if grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h]!=start and grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h]!=end:
-                    grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h].show(win,(0,0,0))
+                    grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h].show(win,(0,0,0))     
                 
         pygame.display.flip()
 
 main()
-
-
