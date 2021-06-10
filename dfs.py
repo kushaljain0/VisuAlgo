@@ -127,11 +127,11 @@ def main():
                                 start.visited= True
                                 
                         if event.button == 3:
-                            if startpoint and endpoint==False:
+                            if startpoint and endpoint==False and grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h]==start:
                                 startpoint=False
                                 stack.pop()
                                 start.visited= False
-                            if endpoint:
+                            if endpoint and grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h]==end:
                                 endpoint=False
 
                         if 200<=pygame.mouse.get_pos()[0]<=400  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and randomflag==0:
