@@ -142,7 +142,7 @@ def main():
                             randomflag=1
 
 
-                        if 740<=pygame.mouse.get_pos()[0]<=1000  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 event.button==1:
+                        if 740<=pygame.mouse.get_pos()[0]<=1000  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and event.button==1:
                             winflag=True
                             randomflag=3
                             
