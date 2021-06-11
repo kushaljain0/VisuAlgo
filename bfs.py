@@ -137,12 +137,12 @@ def main():
                             if endpoint and grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h]==end:
                                 endpoint=False
                                 
-                        if 200<=pygame.mouse.get_pos()[0]<=400  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and randomflag==0:
+                        if 200<=pygame.mouse.get_pos()[0]<=400  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and randomflag==0 and event.button==1:
                             winflag=True
                             randomflag=1
 
 
-                        if 740<=pygame.mouse.get_pos()[0]<=1000  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50:
+                        if 740<=pygame.mouse.get_pos()[0]<=1000  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 event.button==1:
                             winflag=True
                             randomflag=3
                             
@@ -235,7 +235,7 @@ def main():
                         spot.show(win, (255,0,0),0)
                     elif spot.visited:
                         spot.show(win, (255, 0, 0))
-                    if spot in queue:
+                    if spot in queue and flag==False:
                         spot.show(win, (0, 255, 0))
                     if startpoint:
                         if spot == start:
