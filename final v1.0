@@ -100,6 +100,7 @@ def restart():
         makewall = False
         pause = True
 
+        randomdisplay= False
         startpoint = False
         endpoint = False
         starttext=pygame.font.SysFont('gabriolia',28,bold=True)
@@ -184,7 +185,42 @@ def restart():
                 if event.type == pygame.KEYDOWN:
                             if event.key == pygame.K_r:
                                 restart()
+            
+            if 200<=pygame.mouse.get_pos()[0]<=400 and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50:
+                if randomdisplay==False:
+                    for i in range(cols):
+                        for j in range(rows):
+                            spot = grid[i][j]
+                            if random.randint(0,100) < 20:
+                                spot.show(win, (0, 0, 0))
+                            else:
+                                spot.show(win, (160, 160, 200))
+                    randomdisplay=True
+            elif 740>pygame.mouse.get_pos()[0]>1000 and height/2>pygame.mouse.get_pos()[1]>height/2 + 50:
+                randomdisplay=False
+                for i in range(cols):
+                    for j in range(rows):
+                        spot = grid[i][j]
+                        spot.show(win, (0, 0, 0))
+            else:
+                randomdisplay=False
+                for i in range(cols):
+                    for j in range(rows):
+                        spot = grid[i][j]
+                        spot.show(win, (0, 0, 0))
 
+            if 740<=pygame.mouse.get_pos()[0]<=1000 and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50:
+                for i in range(cols):
+                    for j in range(rows):
+                        spot = grid[i][j]
+                        spot.show(win, (160, 160, 200))
+ 
+            elif 200>pygame.mouse.get_pos()[0]>400 and height/2>pygame.mouse.get_pos()[1]>height/2 + 50:
+                for i in range(cols):
+                    for j in range(rows):
+                        spot = grid[i][j]
+                        spot.show(win, (0, 0, 0))
+                        
             if 200<=pygame.mouse.get_pos()[0]<=400 and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50:
                 pygame.draw.rect(win,(255,0,255),[200,height/2,200,50])
             else:
