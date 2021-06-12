@@ -148,12 +148,12 @@ def restart():
                             if 740<=pygame.mouse.get_pos()[0]<=940  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and event.button==1 and winflag and dfsflag==False:
                                 bfsflag=True
                                 
-                            if 200<=pygame.mouse.get_pos()[0]<=400  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and randomflag==0 and event.button==1:
+                            if 200<=pygame.mouse.get_pos()[0]<=400  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and randomflag==0 and event.button==1 and winflag==False:
                                 winflag=True
                                 randomflag=1
 
 
-                            if 740<=pygame.mouse.get_pos()[0]<=1000  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and event.button==1:
+                            if 740<=pygame.mouse.get_pos()[0]<=1000  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and event.button==1 and winflag==False:
                                 winflag=True
                                 randomflag=3
 
