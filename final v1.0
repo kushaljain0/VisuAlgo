@@ -47,7 +47,7 @@ def restart():
             if shape == 1:
                 pygame.draw.rect(win, col, (self.x*w, self.y*h, w-1, h-1))
             else:
-                pygame.draw.rect(win, col, (self.x*w+3 , self.y*h+3 , 13 , 13))
+                pygame.draw.rect(win, col, (self.x*w+4 , self.y*h+4 , 11 , 11))
         
         # Function for storing neghbouring individual grid so that they can be accesed afterwards
         def add_neighbors(self, grid):
