@@ -1,4 +1,3 @@
-
 """Breadth First Search and Depth First Search"""
 
 # Importing Libraries
@@ -11,10 +10,13 @@ def restart():
     size = (width, height) = 1280, 960
     pygame.init()
 
+    #game icon
+    programIcon = pygame.image.load('complexity.png')
+    pygame.display.set_icon(programIcon)  
+                                                
     #Creating a window of size given above
     win = pygame.display.set_mode(size)
-    pygame.display.set_caption('Breadth First Search')
-    clock = pygame.time.Clock()
+    pygame.display.set_caption('Graph Algorithm Visualizer')
 
     #Defining Number and columns and rows 
     cols, rows = 64, 48
@@ -35,7 +37,6 @@ def restart():
         # Function that defines properties of individual part of grid
         def __init__(self, i, j):
             self.x, self.y = i, j
-            self.f, self.g, self.h = 0, 0, 0
             self.neighbors = []
             self.prev = None
             self.wall = False
@@ -48,7 +49,7 @@ def restart():
             if shape == 1:
                 pygame.draw.rect(win, col, (self.x*w, self.y*h, w-1, h-1))
             else:
-                pygame.draw.circle(win, col, (self.x*w+w//2, self.y*h+h//2), w//3)
+                pygame.draw.rect(win, col, (self.x*w+4 , self.y*h+4 , 11 , 11))
         
         # Function for storing neghbouring individual grid so that they can be accesed afterwards
         def add_neighbors(self, grid):
@@ -101,132 +102,229 @@ def restart():
         makewall = False
         pause = True
 
+        randomdisplay2=True
+        randomdisplay= False
         startpoint = False
         endpoint = False
-        starttext=pygame.font.SysFont('Corbel',25,bold=True)
+        starttext=pygame.font.SysFont('gabriolia',28,bold=True)
         text1=starttext.render('SAMPLE MAZE',True,(0,0,0))
         text2=starttext.render('CREATE NEW MAZE',True,(0,0,0))
         text3=starttext.render('DFS',True,(0,0,0))
         text4=starttext.render('BFS',True,(0,0,0))
-        text5=starttext.render('PRESS R TO RESTART',True,(0,100,255))
+        text5=starttext.render('PRESS R TO RESTART',True,(0,0,0))
+        text6=starttext.render('BACK',True,(0,0,0))
+
+        button1=True
+        button2=True
+        button3=True
+        button4=True
+        button5=True
+        click1=True
+        click2=True
+        buttonsound1=pygame.mixer.Sound("button-33a.wav")
+        buttonsound2=pygame.mixer.Sound("button-16.wav")
         while True:
-            if startpoint:
-                start.wall=False
-            if endpoint:
-                end.wall=False
-            if startflag==False:
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        pygame.quit()
-                        sys.exit()
-                    elif event.type == pygame.MOUSEBUTTONDOWN:
-                        if event.button in (1, 3):
-
-                            if event.button == 1:
-                                if startpoint and endpoint==False and (dfsflag or bfsflag):
-                                    end=grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h]
-                                    endpoint=True
-
-                            if event.button == 1:  
-                                if startpoint==False and (dfsflag or bfsflag):
-                                    start=grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h]
-                                    startpoint=True
-                                    queue.append(start)
-                                    start.visited= True
-
-                            if event.button == 3:
-                                if startpoint and endpoint==False and grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h]==start and (dfsflag or bfsflag):
-                                    startpoint=False
-                                    queue.pop()
-                                    start.visited= False
-                                if endpoint and grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h]==end:
-                                    endpoint=False
-
-                            if 200<=pygame.mouse.get_pos()[0]<=400  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and event.button==1 and winflag and bfsflag==False:
-                                dfsflag=True
-
-
-                            if 740<=pygame.mouse.get_pos()[0]<=940  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and event.button==1 and winflag and dfsflag==False:
-                                bfsflag=True
-                                
-                            if 200<=pygame.mouse.get_pos()[0]<=400  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and randomflag==0 and event.button==1:
-                                winflag=True
-                                randomflag=1
-
-
-                            if 740<=pygame.mouse.get_pos()[0]<=1000  and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and event.button==1:
-                                winflag=True
-                                randomflag=3
-
-                                
-                            if (dfsflag or bfsflag) and randomflag==3 and startpoint and endpoint:
-                                clickWall(pygame.mouse.get_pos(), event.button==1)
-                                
-                    elif event.type == pygame.MOUSEMOTION and randomflag==3 and startpoint and endpoint :
-                        if event.buttons[0] or event.buttons[2]:
-                            clickWall(pygame.mouse.get_pos(),event.buttons[0])
-                    if event.type == pygame.KEYDOWN and startpoint and endpoint:
-                        if event.key == pygame.K_RETURN:
-                            startflag = True
-                    if event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_r:
-                                restart()
-                            
-    # Exiting and pause function for path finder
+            # Define mouse as position of mouse
+            mouse=pygame.mouse.get_pos()
+            # All the mouse and keyboard controls
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.KEYDOWN and winflag:
-                    if event.key == pygame.K_SPACE and pause==True:
+                    if event.key == pygame.K_SPACE and pause:
                         pause = False
-                    elif event.key == pygame.K_SPACE and pause==False:
+                    elif event.key == pygame.K_SPACE and not pause:
                         pause = True
                 if event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_r:
-                                restart()
+                    if event.key == pygame.K_r:
+                        restart()
+                if not startflag:   
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if event.button in (1, 3):
 
-            if 200<=pygame.mouse.get_pos()[0]<=400 and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50:
-                pygame.draw.rect(win,(255,0,255),[200,height/2,200,50])
-            else:
-                pygame.draw.rect(win,(0,255,255),[200,height/2,200,50])
+                            if event.button == 1:
+                                if startpoint and not endpoint and (dfsflag or bfsflag):
+                                    end=grid[mouse[0]//w][mouse[1]//h]
+                                    endpoint=True
+
+                            if event.button == 1:  
+                                if not startpoint and (dfsflag or bfsflag):
+                                    start=grid[mouse[0]//w][mouse[1]//h]
+                                    startpoint=True
+                                    queue.append(start)
+                                    start.visited= True
+
+                            if event.button == 3:
+                                if startpoint and not endpoint and grid[mouse[0]//w][mouse[1]//h]==start and (dfsflag or bfsflag):
+                                    startpoint=False
+                                    queue.pop()
+                                    start.visited= False
+                                if endpoint and grid[mouse[0]//w][mouse[1]//h]==end:
+                                    endpoint=False
+
+                            if 200<=mouse[0]<=400  and height/2<=mouse[1]<=height/2 + 50 and event.button==1 and winflag and not bfsflag:
+                                if not click1:
+                                    pygame.mixer.Sound.play(buttonsound2)
+                                    click1=True
+                                dfsflag=True
 
 
-            if 740<=pygame.mouse.get_pos()[0]<=1000 and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50:
-                pygame.draw.rect(win,(255,0,255),[740,height/2,260,50])
-            else:
-                pygame.draw.rect(win,(0,255,255),[740,height/2,260,50])
+                            if 740<=mouse[0]<=940  and height/2<=mouse[1]<=height/2 + 50 and event.button==1 and winflag and not dfsflag:
+                                if not click1:
+                                    pygame.mixer.Sound.play(buttonsound2)
+                                    click1=True
+                                bfsflag=True
+
+                            if 20<=mouse[0]<=120 and 20<=mouse[1]<=60 and winflag and not (dfsflag or bfsflag):
+                                if click2:
+                                    pygame.mixer.Sound.play(buttonsound2)
+                                    click2=False
+                                click1=True
+                                winflag=False
+                                randomflag=0
+                                
+                            if 200<=mouse[0]<=400  and height/2<=mouse[1]<=height/2 + 50 and randomflag==0 and event.button==1 and not winflag:
+                                if click1:
+                                    pygame.mixer.Sound.play(buttonsound2)
+                                    click1=False
+                                randomdisplay2=False
+                                winflag=True
+                                randomflag=1
+                                click2=True
 
 
-            win.blit(text1,(220,height/2+12))
+                            if 740<=mouse[0]<=1000  and height/2<=mouse[1]<=height/2 + 50 and event.button==1 and not winflag:
+                                if click1:
+                                    pygame.mixer.Sound.play(buttonsound2)
+                                    click1=False
+                                winflag=True
+                                randomflag=3
+                                click2=True
+                            
+                        
+                            if (dfsflag or bfsflag) and randomflag==3 and startpoint and endpoint:
+                                clickWall(mouse,event.button==1)
+                        
+                    elif event.type == pygame.MOUSEMOTION and randomflag==3 and startpoint and endpoint :
+                        if event.buttons[0] or event.buttons[2]:
+                            clickWall(mouse,event.buttons[0])
+                    if event.type == pygame.KEYDOWN and startpoint and endpoint:
+                        if event.key == pygame.K_RETURN:
+                            startflag = True
 
 
-            win.blit(text2,(760,height/2+12))
+                            
+            if not winflag:
+                if 200<=mouse[0]<=400 and height/2<=mouse[1]<=height/2 + 50:
+                    if not randomdisplay:
+                        for i in range(cols):
+                            for j in range(rows):
+                                spot = grid[i][j]
+                                if random.randint(0,100) < 20:
+                                    spot.show(win, (0, 0, 0))
+                                else:
+                                    spot.show(win, (160, 160, 200))
+                        randomdisplay=True
+                elif 740>mouse[0]>1000 and height/2>mouse[1]>height/2 + 50:
+                    randomdisplay=False
+                    win.fill((0,0,0))
+                else:
+                    randomdisplay=False
+                    win.fill((0,0,0))
 
-            if winflag:
-                win.fill((0,0,0))
-            if 200<=pygame.mouse.get_pos()[0]<=400 and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and winflag:
-                pygame.draw.rect(win,(255,0,255),[200,height/2,200,50])
-            elif winflag:
-                pygame.draw.rect(win,(0,255,255),[200,height/2,200,50])
+                if 740<=mouse[0]<=1000 and height/2<=mouse[1]<=height/2 + 50:
+                    for i in range(cols):
+                        for j in range(rows):
+                            spot = grid[i][j]
+                            spot.show(win, (160, 160, 200))
+     
+                elif 200>mouse[0]>400 and height/2>mouse[1]>height/2 + 50:
+                    win.fill((0,0,0))
+                            
+                if 200<=mouse[0]<=400 and height/2<=mouse[1]<=height/2 + 50:
+                    if button1:
+                        pygame.mixer.Sound.play(buttonsound1)
+                        button1=False
+                    pygame.draw.rect(win,(255,0,255),[200,height/2,200,50])
+                else:
+                    button1=True
+                    pygame.draw.rect(win,(0,255,255),[200,height/2,200,50])
 
 
-            if 740<=pygame.mouse.get_pos()[0]<=940 and height/2<=pygame.mouse.get_pos()[1]<=height/2 + 50 and winflag:
-                pygame.draw.rect(win,(255,0,255),[740,height/2,200,50])
-            elif winflag:
-                pygame.draw.rect(win,(0,255,255),[740,height/2,200,50])
+                if 740<=mouse[0]<=1000 and height/2<=mouse[1]<=height/2 + 50:
+                    if button2:
+                        pygame.mixer.Sound.play(buttonsound1)
+                        button2=False
+                    pygame.draw.rect(win,(255,0,255),[740,height/2,260,50])
+                else:
+                    button2=True
+                    pygame.draw.rect(win,(0,255,255),[740,height/2,260,50])
 
-            if winflag:
+                win.blit(text1,(220,height/2+12))
+                win.blit(text2,(760,height/2+12))
+
+            if winflag and not (bfsflag or dfsflag):
+                if not randomdisplay2:
+                    win.fill((0,0,0))
+                    for i in range(cols):
+                        for j in range(rows):
+                            spot = grid[i][j]
+                            if random.randint(0,100) < 20:
+                                spot.show(win, (0, 0, 0))
+                            else:
+                                spot.show(win, (160, 160, 200))
+                    randomdisplay2=True
+                elif randomflag==3:
+                    win.fill((0,0,0))
+                    for i in range(cols):
+                        for j in range(rows):
+                            spot = grid[i][j]
+                            spot.show(win, (160, 160, 200))
+                if 200<=mouse[0]<=400 and height/2<=mouse[1]<=height/2 + 50:
+                    if button3:
+                        pygame.mixer.Sound.play(buttonsound1)
+                        button3=False
+                    pygame.draw.rect(win,(255,0,255),[200,height/2,200,50])
+                else:
+                    button3=True
+                    pygame.draw.rect(win,(0,255,255),[200,height/2,200,50])
+
+
+                if 740<=mouse[0]<=940 and height/2<=mouse[1]<=height/2 + 50:
+                    if button4:
+                        pygame.mixer.Sound.play(buttonsound1)
+                        button4=False
+                    pygame.draw.rect(win,(255,0,255),[740,height/2,200,50])
+                else:
+                    button4=True
+                    pygame.draw.rect(win,(0,255,255),[740,height/2,200,50])
+
+
+                if 20<=mouse[0]<=120 and 20<=mouse[1]<=60:
+                    if button5:
+                        pygame.mixer.Sound.play(buttonsound1)
+                        button5=False
+                    pygame.draw.rect(win,(255,0,255),[20,20,100,40])
+                else:
+                    button5=True
+                    pygame.draw.rect(win,(0,255,255),[20,20,100,40])
+
                 win.blit(text3,(280,height/2+12))
                 win.blit(text4,(820,height/2+12))
+                win.blit(text6,(40,30))
 
-
-            if randomflag==1:
+            if winflag:
+                if randomflag==1:
+                    for i in range(cols):
+                        for j in range(rows):
+                            if random.randint(0,100) < 20:
+                                grid[i][j].wall=True
+                        randomflag=2
+            else:
                 for i in range(cols):
-                    for j in range(rows):
-                        if random.randint(0,100) < 20:
-                            grid[i][j].wall=True
-                    randomflag=2
+                        for j in range(rows):
+                            grid[i][j].wall=False
 
             if startflag and pause:
                 if len(queue) > 0:
@@ -244,7 +342,7 @@ def restart():
                             print("Done")
                         elif flag:
                             continue
-                    if flag == False:
+                    if not flag:
                         for i in current.neighbors:
                             if not i.visited and not i.wall:
                                 i.visited = True
@@ -265,37 +363,43 @@ def restart():
                 for i in range(cols):
                     for j in range(rows):
                         spot = grid[i][j]
-                        spot.show(win, (255, 255, 255))
+                        spot.show(win, (160, 160, 200))
                         if spot in path:
-                            spot.show(win, (25, 120, 250))
-                            spot.show(win, (255,0,0),0)
+                            spot.show(win, (0 , 0 , 0)) #solution path
+                            spot.show(win, (255, 153, 51),0)
                         elif spot.visited:
-                            spot.show(win, (255, 0, 0))
-                        if spot in queue and flag==False:
-                            spot.show(win, (0, 255, 0))
-                        if startpoint:
+                            spot.show(win, (102, 0, 200))
+                        if spot in queue and not flag:
+                            spot.show(win, (255 , 128 , 0))
+                        if startpoint: 
                             if spot == start:
-                                spot.show(win,(0,10,100))
+                                spot.show(win,(0,0,0))
                                 spot.show(win, (255,0,0),0)
                         if endpoint:
                             if spot == end:
-                                spot.show(win, (255, 120, 255))
-                                spot.show(win, (255,0,0),0)
-                if startpoint==False:
-                    grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h].show(win,(0,10,100))
-                    grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h].show(win, (255,0,0),0)
-                if startpoint and endpoint==False:
-                    if grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h]!=start:
-                        grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h].show(win,(255,120,255))
-                        grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h].show(win, (255,0,0),0)   
-                if startpoint and endpoint and startflag==False and randomflag==3:
-                    if grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h]!=start and grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h]!=end:
-                        grid[pygame.mouse.get_pos()[0]//w][pygame.mouse.get_pos()[1]//h].show(win,(0,0,0))     
+                                spot.show(win, (0, 0, 0))
+                                spot.show(win, (0,255,0),0)
+                                
+                if not startpoint:
+                    grid[mouse[0]//w][mouse[1]//h].show(win,(0,0,0))
+                    grid[mouse[0]//w][mouse[1]//h].show(win, (255,0,0),0)
+                if startpoint and not endpoint:
+                    if grid[mouse[0]//w][mouse[1]//h]!=start:
+                        grid[mouse[0]//w][mouse[1]//h].show(win,(0,0,0))
+                        grid[mouse[0]//w][mouse[1]//h].show(win, (0,255,0),0)   
+                if startpoint and endpoint and not startflag and randomflag==3:
+                    if grid[mouse[0]//w][mouse[1]//h] is not start and grid[mouse[0]//w][mouse[1]//h] is not end:
+                        grid[mouse[0]//w][mouse[1]//h].show(win,(0,0,0))     
                 if flag or not noflag:
                     win.blit(text5,(560,height/2+12))
-                    
+
+            # To avoid walls on the start and end
+            if startpoint:
+                start.wall=False
+            if endpoint:
+                end.wall=False
+                
             pygame.display.flip()
 
     main()
 restart()
-
