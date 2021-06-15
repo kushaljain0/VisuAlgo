@@ -110,10 +110,9 @@ def restart():
         dfsflag = False
         bfsflag = False
         startflag = False
-        makewall = False
         pause = True
 
-        # Flags and variables for displaying text
+        # Flags and variables for displaying text and background
         randomdisplay2=True
         randomdisplay= False
         startpoint = False
