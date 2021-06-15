@@ -515,9 +515,18 @@ def restart():
                             pygame.quit()
                             sys.exit()
                         noflag = False
-                        
                     else:
-                        continue
+                        pathfound.play()
+                        Tk().wm_withdraw()
+                        messagebox.showinfo("Path Found","Hurrah! There exists a path.")
+                        Tk().wm_withdraw()
+                        result=messagebox.askquestion("Restart", "Do you want to restart ?",icon='warning')
+                        if result == 'yes':
+                            mixer.pause()
+                            restart()
+                        elif result == 'no':
+                            pygame.quit()
+                            sys.exit()
 
 
             
@@ -553,19 +562,6 @@ def restart():
                 if startpoint and endpoint and not startflag and randomflag==3:
                     if setposition is not start and setposition is not end:
                         setposition.show(win,(0,0,0))     
-
-            if flag and len(queue)==0:
-                pathfound.play()
-                Tk().wm_withdraw()
-                messagebox.showinfo("Path Found","Hurrah! There exists a path.")
-                Tk().wm_withdraw()
-                result=messagebox.askquestion("Restart", "Do you want to restart ?",icon='warning')
-                if result == 'yes':
-                    mixer.pause()
-                    restart()
-                elif result == 'no':
-                    pygame.quit()
-                    sys.exit()
                     
             # To avoid walls on the start and end
             if startpoint:
