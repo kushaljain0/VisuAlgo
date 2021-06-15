@@ -6,6 +6,7 @@ from collections import deque
 from tkinter import messagebox, Tk
 from pygame import mixer
 
+# Function to define path for sound and image files when executing as an executable file
 def resource_path(relative_path):
     if hasattr(sys,'_MEIPASS'):
         return os.path.join(sys._MEIPASS,relative_path)
@@ -84,9 +85,6 @@ def restart():
         j = pos[1] // h
         grid[i][j].wall = state
 
-    def createbutton(win,col,a,b,c,d):
-        pygame.draw.rect(win,col,[a,b,c,d])
-
     # Loop to store coordinates of each individual grid in form of pairs
     for i in range(cols):
         arr = []
@@ -101,8 +99,10 @@ def restart():
 
         
     def main():
+        # Background image initialized
         background=pygame.image.load(resource_path('background.png'))
-        
+
+        # Flags 
         randomflag = 0
         winflag=False
         flag = False
@@ -113,6 +113,7 @@ def restart():
         makewall = False
         pause = True
 
+        # Flags and variables for displaying text
         randomdisplay2=True
         randomdisplay= False
         startpoint = False
@@ -125,6 +126,8 @@ def restart():
         text5=starttext.render('PRESS R TO RESTART',True,(0,0,0))
         text6=starttext.render('BACK',True,(0,0,0))
 
+
+        # All sound variables 
         button1=True
         button2=True
         button3=True
@@ -140,10 +143,14 @@ def restart():
         breakwall=mixer.Sound(resource_path('breakwall.wav'))
         mixer.Sound.set_volume(pathfound,0.3)
         mixer.Sound.set_volume(nopath,0.3)
+
+
         while True:
             # Define mouse as position of mouse
             mouse=pygame.mouse.get_pos()
             setposition=grid[mouse[0]//w][mouse[1]//h]
+
+
             # All the mouse and keyboard controls
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -247,7 +254,7 @@ def restart():
                             startflag = True
 
 
-                            
+            # Opening Screen                
             if not winflag:
                 if 200<=mouse[0]<=400 and height/2<=mouse[1]<=height/2 + 50:
                     if not randomdisplay:
@@ -299,6 +306,8 @@ def restart():
                 win.blit(text1,(220,height/2+10))
                 win.blit(text2,(760,height/2+10))
 
+
+            # Algorithm Deciding Screen
             if winflag and not (bfsflag or dfsflag):
                 if not randomdisplay2:
                     win.fill((0,0,0))
@@ -349,6 +358,7 @@ def restart():
                 win.blit(text4,(820,height/2+10))
                 win.blit(text6,(40,25))
 
+            # Loop to create a random maze when its selected
             if winflag:
                 if randomflag==1:
                     for i in range(cols):
@@ -361,6 +371,8 @@ def restart():
                         for j in range(rows):
                             grid[i][j].wall=False
 
+
+            # BFS or DFS Algorithm running
             if startflag and pause:
                 if len(queue) > 0:
                     if dfsflag:
@@ -396,12 +408,21 @@ def restart():
                             pygame.quit()
                             sys.exit()
                         noflag = False
-                        
                     else:
-                        continue
+                        pathfound.play()
+                        Tk().wm_withdraw()
+                        messagebox.showinfo("Path Found","Hurrah! There exists a path.")
+                        Tk().wm_withdraw()
+                        result=messagebox.askquestion("Restart", "Do you want to restart ?",icon='warning')
+                        if result == 'yes':
+                            mixer.pause()
+                            restart()
+                        elif result == 'no':
+                            pygame.quit()
+                            sys.exit()
 
 
-            
+            # Colouring Blocks according to above running algorithm
             if dfsflag or bfsflag:
                 win.fill((0, 0, 0))
                 for i in range(cols):
@@ -435,18 +456,6 @@ def restart():
                     if setposition is not start and setposition is not end:
                         setposition.show(win,(0,0,0))     
 
-            if flag and len(queue)==0:
-                pathfound.play()
-                Tk().wm_withdraw()
-                messagebox.showinfo("Path Found","Hurrah! There exists a path.")
-                Tk().wm_withdraw()
-                result=messagebox.askquestion("Restart", "Do you want to restart ?",icon='warning')
-                if result == 'yes':
-                    mixer.pause()
-                    restart()
-                elif result == 'no':
-                    pygame.quit()
-                    sys.exit()
                     
             # To avoid walls on the start and end
             if startpoint:
