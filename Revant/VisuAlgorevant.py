@@ -206,7 +206,6 @@ def restart():
         dfsflag = False
         bfsflag = False
         startflag = False
-        makewall = False
         pause = True
 
         randomdisplay2=True
