@@ -47,6 +47,7 @@ Note: For running VisuAlgo, all the necessary libraries must be installed or els
 * Restart : `r`
 * Start process : `enter`
 * Draw and erase walls : `cursor`
+* Pause : `space-bar`
 
 ## Algorithm
  ### DFS (Depth for search) : 
