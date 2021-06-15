@@ -415,9 +415,10 @@ def restart():
 
                 #win.blit(text1,(220,height/2+10))
                 #win.blit(text2,(760,height/2+10))
-
+            if winflag:
+                my_group.update(stop=True)
+                
             if winflag and not (bfsflag or dfsflag):
-                win.fill(BACKGROUND_COLOR)
                 if not randomdisplay2:
                     win.fill((0,0,0))
                     for i in range(cols):
