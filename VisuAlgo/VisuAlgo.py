@@ -84,10 +84,12 @@ def restart():
         i = pos[0] // w
         j = pos[1] // h
         grid[i][j].wall = state
-
+    
+    # Function to create buttons
     def createbutton(win,col,area):
         return pygame.draw.rect(win,col,area)
 
+    # Function to map area 
     def buttonarea(pos,area,conjugate = 0):
         if conjugate == 0:
             return area[0]<= pos[0] <=area[0]+area[2] and area[1]<= pos[1] <=area[1]+area[3]
