@@ -56,7 +56,7 @@ def restart():
             if shape == 1:
                 pygame.draw.rect(win, col, (self.x*w, self.y*h, w-1, h-1))
             else:
-                pygame.draw.rect(win, col, (self.x*w+9 , self.y*h+9 , 21 , 21))
+                pygame.draw.rect(win, col, (self.x*w+w//4 , self.y*h+h//4, w//2, h//2))
         
         # Function for storing neghbouring individual grid so that they can be accesed afterwards
         def add_neighbors(self, grid):
@@ -84,16 +84,14 @@ def restart():
         i = pos[0] // w
         j = pos[1] // h
         grid[i][j].wall = state
-    
-    # Function to create buttons
-    def createbutton(win,col,area):
-        return pygame.draw.rect(win,col,area)
 
-    # Function to map area 
-    def buttonarea(pos,area,conjugate = 0):
+    def createbutton(win, col, area):
+        return pygame.draw.rect(win, col, area)
+
+    def buttonarea(pos, area, conjugate = 0):
         if conjugate == 0:
-            return area[0]<= pos[0] <=area[0]+area[2] and area[1]<= pos[1] <=area[1]+area[3]
-        return area[0]> pos[0] >area[0]+area[2] and area[1]> pos[1] >area[1]+area[3]
+            return area[0] <= pos[0] <= area[0]+area[2] and area[1] <= pos[1] <= area[1]+area[3]
+        return area[0] > pos[0] > area[0]+area[2] and area[1] > pos[1] > area[1]+area[3]
 
     # Loop to store coordinates of each individual grid in form of pairs
     for i in range(cols):
@@ -110,16 +108,16 @@ def restart():
         
     def main():
         # Background image initialized
-        background = pygame.image.load(resource_path('background.png'))
+        bg = (pygame.image.load(resource_path('background.png')), (0,0))
 
 
         # Grid Colours
         gridcol = (160, 160, 200)
-        startcol = ((0,0,0),(255,0,0))
-        endcol = ((0,0,0),(0,255,0))
+        startcol = ((0,0,0), (255,0,0))
+        endcol = ((0,0,0), (0,255,0))
         visitedcol = (102, 0, 200)
         in_queuecol = (255 , 128 , 255)
-        pathcol = ((0,0,0),(255, 153, 51))
+        pathcol = ((0,0,0), (255, 153, 51))
         wallcol = (0,0,0)
         
         
@@ -149,11 +147,11 @@ def restart():
         randomdisplay2 = True
         randomdisplay = False
         starttext = pygame.font.Font('FreeSansBold.ttf',22,bold=True)
-        text1 = (starttext.render('SAMPLE MAZE',True,(0,0,0)),(220,height/2+10))
-        text2 = (starttext.render('CREATE NEW MAZE',True,(0,0,0)),(760,height/2+10))
-        text3 = (starttext.render('DFS',True,(0,0,0)),(280,height/2+10))
-        text4 = (starttext.render('BFS',True,(0,0,0)),(820,height/2+10))
-        text5 = (starttext.render('BACK',True,(0,0,0)),(40,25))
+        text1 = (starttext.render('SAMPLE MAZE',True,(0,0,0)), (220,height/2+10))
+        text2 = (starttext.render('CREATE NEW MAZE',True,(0,0,0)), (760,height/2+10))
+        text3 = (starttext.render('DFS',True,(0,0,0)), (280,height/2+10))
+        text4 = (starttext.render('BFS',True,(0,0,0)), (820,height/2+10))
+        text5 = (starttext.render('BACK',True,(0,0,0)), (40,25))
 
 
         # All sound variables 
@@ -170,8 +168,8 @@ def restart():
         pathfound=mixer.Sound(resource_path('pathfound.wav'))
         createwall=mixer.Sound(resource_path('createwall.wav'))
         breakwall=mixer.Sound(resource_path('breakwall.wav'))
-        mixer.Sound.set_volume(pathfound,0.3)
-        mixer.Sound.set_volume(nopath,0.3)
+        mixer.Sound.set_volume(pathfound, 0.3)
+        mixer.Sound.set_volume(nopath, 0.3)
 
 
         while True:
@@ -197,6 +195,9 @@ def restart():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_r:
                         restart()
+                if event.type == pygame.KEYDOWN and startpoint and endpoint:
+                    if event.key == pygame.K_RETURN:
+                        startflag = True
                 if not startflag:   
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if event.button in (1, 3):
@@ -204,137 +205,135 @@ def restart():
                             if event.button == 1:
                                 if startpoint and not endpoint and (dfsflag or bfsflag):
                                     createwall.play()
-                                    end=setposition
-                                    endpoint=True
+                                    end = setposition
+                                    endpoint = True
 
                             if event.button == 1:  
                                 if not startpoint and (dfsflag or bfsflag):
                                     createwall.play()
-                                    start=setposition
-                                    startpoint=True
+                                    start = setposition
+                                    startpoint = True
                                     queue.append(start)
-                                    start.visited= True
+                                    start.visited = True
 
                             if event.button == 3:
-                                if startpoint and not endpoint and setposition==start and (dfsflag or bfsflag):
+                                if startpoint and not endpoint and setposition == start and (dfsflag or bfsflag):
                                     breakwall.play()
-                                    startpoint=False
+                                    startpoint = False
                                     queue.pop()
-                                    start.visited= False
-                                if endpoint and setposition==end:
+                                    start.visited = False
+                                if endpoint and setposition == end:
                                     breakwall.play()
-                                    endpoint=False
+                                    endpoint = False
 
-                            if buttonarea(mouse,dfs) and event.button==1 and winflag and not bfsflag:
+                            if buttonarea(mouse, dfs) and event.button == 1 and winflag and not bfsflag:
                                 if not click1:
                                     buttonsound2.play()
-                                    click1=True
-                                dfsflag=True
+                                    click1 = True
+                                dfsflag = True
 
 
-                            if buttonarea(mouse,bfs) and event.button==1 and winflag and not dfsflag:
+                            if buttonarea(mouse, bfs) and event.button == 1 and winflag and not dfsflag:
                                 if not click1:
                                     buttonsound2.play()
-                                    click1=True
-                                bfsflag=True
+                                    click1 = True
+                                bfsflag = True
 
-                            if buttonarea(mouse,back) and winflag and not (dfsflag or bfsflag):
+                            if buttonarea(mouse, back) and winflag and not (dfsflag or bfsflag):
                                 if click2:
                                     buttonsound2.play()
-                                    click2=False
-                                click1=True
-                                winflag=False
-                                randomflag=0
+                                    click2 = False
+                                click1 = True
+                                winflag = False
+                                randomflag = 0
                                 
-                            if buttonarea(mouse,randommaze) and randomflag==0 and event.button==1 and not winflag:
+                            if buttonarea(mouse, randommaze) and randomflag == 0 and event.button == 1 and not winflag:
                                 if click1:
                                     buttonsound2.play()
-                                    click1=False
-                                randomdisplay2=False
-                                winflag=True
-                                randomflag=1
-                                click2=True
+                                    click1 = False
+                                randomdisplay2 = False
+                                winflag = True
+                                randomflag = 1
+                                click2 = True
 
 
-                            if buttonarea(mouse,createmaze) and event.button==1 and not winflag:
+                            if buttonarea(mouse, createmaze) and event.button == 1 and not winflag:
                                 if click1:
                                     buttonsound2.play()
-                                    click1=False
-                                winflag=True
-                                randomflag=3
-                                click2=True
+                                    click1 = False
+                                winflag = True
+                                randomflag = 3
+                                click2 = True
                             
                         
-                            if (dfsflag or bfsflag) and randomflag==3 and startpoint and endpoint:
-                                if event.button==1:
+                            if (dfsflag or bfsflag) and randomflag == 3 and startpoint and endpoint:
+                                if event.button == 1:
                                     createwall.play()
-                                elif event.button==3:
+                                elif event.button == 3:
                                     breakwall.play()
-                                clickWall(mouse,event.button==1)
+                                clickWall(mouse, event.button == 1)
                         
-                    elif event.type == pygame.MOUSEMOTION and randomflag==3 and startpoint and endpoint :
+                    elif event.type == pygame.MOUSEMOTION and randomflag == 3 and startpoint and endpoint :
                         if event.buttons[0] or event.buttons[2]:
                             if event.buttons[0]:
                                 createwall.play()
                             elif event.buttons[2]:
                                 breakwall.play()
-                            clickWall(mouse,event.buttons[0])
-                    if event.type == pygame.KEYDOWN and startpoint and endpoint:
-                        if event.key == pygame.K_RETURN:
-                            startflag = True
+                            clickWall(mouse, event.buttons[0])
+                    
 
 
             # Opening Screen                
             if not winflag:
-                if buttonarea(mouse,randommaze):
+                if buttonarea(mouse, randommaze):
                     if not randomdisplay:
                         win.fill(wallcol)
                         for i in range(cols):
                             for j in range(rows):
                                 spot = grid[i][j]
                                 if random.randint(0,100) < 20:
-                                    spot.show(win,wallcol)
+                                    spot.show(win, wallcol)
                                 else:
-                                    spot.show(win,gridcol)
-                        randomdisplay=True
-                elif buttonarea(mouse,createmaze,1):
-                    randomdisplay=False
-                    win.blit(background,(0,0))
+                                    spot.show(win, gridcol)
+                        randomdisplay = True
+                elif buttonarea(mouse, createmaze, 1):
+                    randomdisplay = False
+                    win.blit(bg[0], bg[1])
                 else:
-                    randomdisplay=False
-                    win.blit(background,(0,0))
+                    randomdisplay = False
+                    win.blit(bg[0], bg[1])
 
-                if buttonarea(mouse,createmaze):
+                if buttonarea(mouse, createmaze):
                     win.fill(wallcol)
                     for i in range(cols):
                         for j in range(rows):
                             spot = grid[i][j]
                             spot.show(win,gridcol)
      
-                elif buttonarea(mouse,randommaze,1):
-                    win.blit(background,(0,0))
+                elif buttonarea(mouse, randommaze, 1):
+                    win.blit(bg[0], bg[1])
                             
-                if buttonarea(mouse,randommaze):
+                if buttonarea(mouse, randommaze):
                     if button1:
                         buttonsound1.play()
-                        button1=False
-                    createbutton(win,col1,randommaze)
+                        button1 = False
+                    createbutton(win, col1, randommaze)
                 else:
-                    button1=True
-                    createbutton(win,col2,randommaze)
+                    button1 = True
+                    createbutton(win, col2, randommaze)
 
 
-                if buttonarea(mouse,createmaze):
+                if buttonarea(mouse, createmaze):
                     if button2:
                         buttonsound1.play()
-                        button2=False
-                    createbutton(win,col1,createmaze)
+                        button2 = False
+                    createbutton(win, col1, createmaze)
                 else:
-                    button2=True
-                    createbutton(win,col2,createmaze)
+                    button2 = True
+                    createbutton(win, col2, createmaze)
 
-                win.blit(text1[0],text1[1])
-                win.blit(text2[0],text2[1])
+                win.blit(text1[0], text1[1])
+                win.blit(text2[0], text2[1])
 
 
             # Algorithm Deciding Screen
@@ -345,61 +344,61 @@ def restart():
                         for j in range(rows):
                             spot = grid[i][j]
                             if random.randint(0,100) < 20:
-                                spot.show(win,wallcol)
+                                spot.show(win, wallcol)
                             else:
-                                spot.show(win,gridcol)
-                    randomdisplay2=True
-                elif randomflag==3:
+                                spot.show(win, gridcol)
+                    randomdisplay2 = True
+                elif randomflag == 3:
                     win.fill(wallcol)
                     for i in range(cols):
                         for j in range(rows):
                             spot = grid[i][j]
-                            spot.show(win,gridcol)
-                if buttonarea(mouse,dfs):
+                            spot.show(win, gridcol)
+                if buttonarea(mouse, dfs):
                     if button3:
                         buttonsound1.play()
-                        button3=False
-                    createbutton(win,col1,dfs)
+                        button3 = False
+                    createbutton(win, col1, dfs)
                 else:
-                    button3=True
-                    createbutton(win,col2,dfs)
+                    button3 = True
+                    createbutton(win, col2, dfs)
 
 
-                if buttonarea(mouse,bfs):
+                if buttonarea(mouse, bfs):
                     if button4:
                         buttonsound1.play()
-                        button4=False
-                    createbutton(win,col1,bfs)
+                        button4 = False
+                    createbutton(win, col1, bfs)
                 else:
-                    button4=True
-                    createbutton(win,col2,bfs)
+                    button4 = True
+                    createbutton(win, col2, bfs)
 
 
-                if buttonarea(mouse,back):
+                if buttonarea(mouse, back):
                     if button5:
                         buttonsound1.play()
-                        button5=False
-                    createbutton(win,col1,back)
+                        button5 = False
+                    createbutton(win, col1, back)
                 else:
-                    button5=True
-                    createbutton(win,col2,back)
+                    button5 = True
+                    createbutton(win, col2, back)
 
-                win.blit(text3[0],text3[1])
-                win.blit(text4[0],text4[1])
-                win.blit(text5[0],text5[1])
+                win.blit(text3[0], text3[1])
+                win.blit(text4[0], text4[1])
+                win.blit(text5[0], text5[1])
 
             # Loop to create a random maze when its selected
             if winflag:
-                if randomflag==1:
+                if randomflag == 1:
                     for i in range(cols):
                         for j in range(rows):
                             if random.randint(0,100) < 20:
-                                grid[i][j].wall=True
-                        randomflag=2
+                                grid[i][j].wall = True
+                        randomflag = 2
             else:
                 for i in range(cols):
                         for j in range(rows):
-                            grid[i][j].wall=False
+                            grid[i][j].wall = False
 
 
             # BFS or DFS Algorithm running
@@ -458,40 +457,40 @@ def restart():
                 for i in range(cols):
                     for j in range(rows):
                         spot = grid[i][j]
-                        spot.show(win,gridcol)
+                        spot.show(win, gridcol)
                         if spot in path:
-                            spot.show(win,pathcol[0])
-                            spot.show(win,pathcol[1],0)
+                            spot.show(win, pathcol[0])
+                            spot.show(win, pathcol[1], 0)
                         elif spot.visited:
-                            spot.show(win,visitedcol)
+                            spot.show(win, visitedcol)
                         if spot in queue and not flag:
-                            spot.show(win,in_queuecol)
+                            spot.show(win, in_queuecol)
                         if startpoint: 
                             if spot == start:
-                                spot.show(win,startcol[0])
-                                spot.show(win,startcol[1],0)
+                                spot.show(win, startcol[0])
+                                spot.show(win, startcol[1], 0)
                         if endpoint:
                             if spot == end:
-                                spot.show(win,endcol[0])
-                                spot.show(win,endcol[1],0)
+                                spot.show(win, endcol[0])
+                                spot.show(win, endcol[1], 0)
                                 
                 if not startpoint:
-                    setposition.show(win,startcol[0])
-                    setposition.show(win,startcol[1],0)
+                    setposition.show(win, startcol[0])
+                    setposition.show(win, startcol[1], 0)
                 if startpoint and not endpoint:
-                    if setposition!=start:
-                        setposition.show(win,endcol[0])
-                        setposition.show(win,endcol[1],0)   
-                if startpoint and endpoint and not startflag and randomflag==3:
+                    if setposition != start:
+                        setposition.show(win, endcol[0])
+                        setposition.show(win, endcol[1], 0)   
+                if startpoint and endpoint and not startflag and randomflag == 3:
                     if setposition is not start and setposition is not end:
-                        setposition.show(win,wallcol)     
+                        setposition.show(win, wallcol)     
 
                     
             # To avoid walls on the start and end
             if startpoint:
-                start.wall=False
+                start.wall = False
             if endpoint:
-                end.wall=False
+                end.wall = False
 
             # Updating screen in every loop   
             pygame.display.flip()
