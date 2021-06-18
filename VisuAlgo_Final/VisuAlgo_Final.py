@@ -109,16 +109,16 @@ def restart():
     def main():
         # Background image and buttons image
         bg = (pygame.image.load(resource_path('background.png')), (-50,-40))
-        CreateMaze = (pygame.image.load('c.png'), (395,height/4+200))
-        CreateMaze2 = (pygame.image.load('c2.png'), (395,height/4+200))
-        SampleMaze = (pygame.image.load('s.png'), (390,height/4+90))
-        SampleMaze2 = (pygame.image.load('s2.png'), (390,height/4+90))
-        bfs = (pygame.image.load('bfs.png'), (550,height/4+200))
-        dfs= (pygame.image.load('dfs.png'), (550,height/4+90))
-        bfs2 = (pygame.image.load('bfs2.png'), (550,height/4+200))
-        dfs2 = (pygame.image.load('dfs2.png'), (550,height/4+90))
-        back = (pygame.image.load('back.png'), (20,20))
-        back2 = (pygame.image.load('back2.png'), (20,20))
+        CreateMaze = (pygame.image.load(resource_path('c.png')), (395,height/4+200))
+        CreateMaze2 = (pygame.image.load(resource_path('c2.png')), (395,height/4+200))
+        SampleMaze = (pygame.image.load(resource_path('s.png')), (390,height/4+90))
+        SampleMaze2 = (pygame.image.load(resource_path('s2.png')), (390,height/4+90))
+        bfs = (pygame.image.load(resource_path('bfs.png')), (550,height/4+200))
+        dfs= (pygame.image.load(resource_path('dfs.png')), (550,height/4+90))
+        bfs2 = (pygame.image.load(resource_path('bfs2.png')), (550,height/4+200))
+        dfs2 = (pygame.image.load(resource_path('dfs2.png')), (550,height/4+90))
+        back = (pygame.image.load(resource_path('back.png')), (20,20))
+        back2 = (pygame.image.load(resource_path('back2.png')), (20,20))
 
 
         # Grid Colours
