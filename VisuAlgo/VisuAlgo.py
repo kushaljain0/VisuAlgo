@@ -1,4 +1,5 @@
-"""Breadth First Search and Depth First Search"""
+"""BFS and DFS Algorithm visualizer"""
+
 
 # Importing Libraries
 import pygame, sys, random, math,os
