@@ -27,11 +27,11 @@ Note: For running VisuAlgo, all the necessary libraries must be installed or els
 ## Instructions 
 * Users can either draw `Custom maze` or select `Random Maze`
 
-![interface](readme_files/Interface.gif)
+![interface](readme_files/interface.gif)
 
 * Then users can select from `BFS` or `DFS`
 
-![option](readme_files/Option.gif)
+![option](readme_files/option.png)
 
 * DFS
 
