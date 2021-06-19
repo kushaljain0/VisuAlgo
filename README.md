@@ -19,7 +19,7 @@ A tool for visualizing the working of famous path finding algorithms like BFS(br
 
 ## Run in Local Machine
 Download or clone the repository. Then run the following command in the downloaded directory.
-> python path_finding.py
+> python VisuAlgo.py
 
 Note: For running VisuAlgo, all the necessary libraries must be installed or else , click on 
 
