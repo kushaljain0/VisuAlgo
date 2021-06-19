@@ -34,10 +34,12 @@ Note: For running VisuAlgo, all the necessary libraries must be installed or els
 ![option](readme_files/option.png)
 
 * DFS
+
 ![option](readme_files/dfs.gif)
   
 
 * BFS
+
 ![option](readme_files/bfs.gif)
   
   
