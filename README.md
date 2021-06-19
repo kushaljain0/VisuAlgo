@@ -9,19 +9,19 @@ A tool for visualizing the working of famous path finding algorithms like BFS(br
 * User can build walls 
 
 ## Requirements
-* [Python3]()
-* [Pip]()
-* [PyGame]()
-* [Tkinter]()
-* [Sys]()
-* [OS]()
+* [Python3](https://www.python.org/)
+* [Pip](https://pypi.org/project/pip/)
+* [PyGame](https://www.pygame.org/wiki/about)
+* [Tkinter](https://docs.python.org/3/library/tkinter.html)
+* [Sys](https://docs.python.org/3/library/sys.html)
+* [OS](https://docs.python.org/3/library/os.html)
 
 
 ## Run in Local Machine
 Download or clone the repository. Then run the following command in the downloaded directory.
 > python VisuAlgo.py
 
-Note: For running VisuAlgo, all the necessary libraries must be installed or else , click on 
+Note: For running VisuAlgo, all the necessary libraries must be installed or else , click [here](https://docs.python.org/3/library/os.html)
 
 
 ## Instructions 
