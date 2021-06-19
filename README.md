@@ -62,5 +62,5 @@ Note: For running VisuAlgo, all the necessary libraries must be installed or els
   
   ![bfs](https://upload.wikimedia.org/wikipedia/commons/5/5d/Breadth-First-Search-Algorithm.gif)
   
-  ### Contributing
+  ### Contributions
    We welcome all kinds of contributions from the open-source community.
