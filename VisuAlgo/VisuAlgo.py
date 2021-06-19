@@ -110,6 +110,7 @@ def restart():
 
         
     def main():
+        
         # Background image and buttons image
         bg = (pygame.image.load(resource_path('images/background.png')), (-50,-40))
         CreateMaze = (pygame.image.load(resource_path('images/c.png')), (395,height/4+200))
