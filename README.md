@@ -1,11 +1,10 @@
 [![forthebadge made-with-python](https://forthebadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![README Checker](https://github.com/williamfiset/Algorithms/workflows/README%20URL%20Checker/badge.svg)
 <br>
 
 # VisuAlgo : A path-finding visualization tool 
 
-A tool for visualizing the working of famous path finding algorithms like BFS(breadth for search) and DFS(depth for search) , with the following functionalities
+A tool for visualizing the working of famous path finding algorithms like BFS(breadth first search) and DFS(depth first search) , with the following functionalities
 * User can choose start and end point
 * User can build walls 
 
@@ -50,13 +49,13 @@ Note: For running VisuAlgo, all the necessary libraries must be installed or els
 * Pause : `space-bar`
 
 ## Algorithm
- ### DFS (Depth for search) : 
+ ### DFS (Depth first search) : 
   The Depth First Search (DFS) is the most fundamental search algorithm used to explore nodes and edges of a    graph. It runs with a       time complexity of O(V+E) and is often used as a building block in other algorithms.
   By itself the DFS isn’t all that useful, but when augmented to perform other tasks such as count connected components, determine         connectivity, or find bridges/articulation points then DFS really shines.
    
    ![dfs](readme_files/dfs.gif)
    
- ### BFS (Breadth for search) : 
+ ### BFS (Breadth first search) : 
   The Breadth First Search (BFS) is another fundamental search algorithm used to explore nodes and edges of   a graph. It runs with a       time complexity of O(V+E) and is often used as a building block in other algorithms.
   The BFS algorithm is particularly useful for one thing: finding the shortest path on unweighted graphs.
   
