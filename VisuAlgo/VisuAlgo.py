@@ -85,12 +85,15 @@ def restart():
         j = pos[1] // h
         grid[i][j].wall = state
 
+    # Function for creating rectangular buttons
     def createbutton(win , col, area):
         return pygame.draw.rect(win, col ,area)
 
+    # Function for displaying object such as text and images
     def display(obj):
         return win.blit(obj[0],obj[1])
 
+    # Function for defining area for buttons
     def buttonarea(pos, area, conjugate = 0):
         if conjugate == 0:
             return area[0] <= pos[0] <= area[0]+area[2] and area[1] <= pos[1] <= area[1]+area[3]
@@ -110,7 +113,7 @@ def restart():
 
         
     def main():
-        # Background image and buttons image
+        # Background image
         bg = (pygame.image.load(resource_path('images/background.png')), (-80,0))
 
 
@@ -454,7 +457,7 @@ def restart():
                             sys.exit()
 
 
-            # Colouring Blocks according to above running algorithm
+            # Colouring Blocks and displaying it according to above running algorithm
             if dfsflag or bfsflag:
                 win.fill(wallcol)
                 for i in range(cols):
