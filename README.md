@@ -33,13 +33,13 @@ Note: For running VisuAlgo, all the necessary libraries must be installed or els
 
 ![option](readme_files/Option.gif)
 
-* BFS
-
-  ![option](readme_files/Option.gif)
-  
 * DFS
 
-  ![option](readme_files/Option.gif)
+  ![option](readme_files/dfs.gif)
+  
+* BFS
+
+  ![option](readme_files/bfs.gif)
   
   
 ## Controls
@@ -59,7 +59,7 @@ Note: For running VisuAlgo, all the necessary libraries must be installed or els
   The Breadth First Search (BFS) is another fundamental search algorithm used to explore nodes and edges of   a graph. It runs with a       time complexity of O(V+E) and is often used as a building block in other algorithms.
   The BFS algorithm is particularly useful for one thing: finding the shortest path on unweighted graphs.
   
-  ![bfs](readme_files/bfs.gif)
+  ![bfs](https://upload.wikimedia.org/wikipedia/commons/5/5d/Breadth-First-Search-Algorithm.gif)
   
   ### Contributing
    We welcome all kinds of contributions from the open-source community.
