@@ -19,7 +19,7 @@ def restart():
     pygame.init()
 
     #game icon
-    programIcon = pygame.image.load(resource_path('images/icon.png'))
+    programIcon = pygame.image.load(resource_path('image/icon.png'))
     pygame.display.set_icon(programIcon)  
                                                 
     #Creating a window of size given above
@@ -112,17 +112,17 @@ def restart():
     def main():
         
         # Background image and buttons image
-        bg = (pygame.image.load(resource_path('images/background.png')), (-50,-40))
-        CreateMaze = (pygame.image.load(resource_path('images/c.png')), (395,height/4+200))
-        CreateMaze2 = (pygame.image.load(resource_path('images/c2.png')), (395,height/4+200))
-        SampleMaze = (pygame.image.load(resource_path('images/s.png')), (390,height/4+90))
-        SampleMaze2 = (pygame.image.load(resource_path('images/s2.png')), (390,height/4+90))
-        bfs = (pygame.image.load(resource_path('images/bfs.png')), (550,height/4+200))
-        dfs= (pygame.image.load(resource_path('images/dfs.png')), (550,height/4+90))
-        bfs2 = (pygame.image.load(resource_path('images/bfs2.png')), (550,height/4+200))
-        dfs2 = (pygame.image.load(resource_path('images/dfs2.png')), (550,height/4+90))
-        back = (pygame.image.load(resource_path('images/back.png')), (20,20))
-        back2 = (pygame.image.load(resource_path('images/back2.png')), (20,20))
+        bg = (pygame.image.load(resource_path('image/background.png')), (-50,-40))
+        CreateMaze = (pygame.image.load(resource_path('image/c.png')), (395,height/4+200))
+        CreateMaze2 = (pygame.image.load(resource_path('image/c2.png')), (395,height/4+200))
+        SampleMaze = (pygame.image.load(resource_path('image/s.png')), (390,height/4+90))
+        SampleMaze2 = (pygame.image.load(resource_path('image/s2.png')), (390,height/4+90))
+        bfs = (pygame.image.load(resource_path('image/bfs.png')), (550,height/4+200))
+        dfs= (pygame.image.load(resource_path('image/dfs.png')), (550,height/4+90))
+        bfs2 = (pygame.image.load(resource_path('image/bfs2.png')), (550,height/4+200))
+        dfs2 = (pygame.image.load(resource_path('image/dfs2.png')), (550,height/4+90))
+        back = (pygame.image.load(resource_path('image/back.png')), (20,20))
+        back2 = (pygame.image.load(resource_path('image/back2.png')), (20,20))
 
 
         # Grid Colours
