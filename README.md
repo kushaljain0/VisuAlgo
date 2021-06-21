@@ -33,7 +33,7 @@ Note: For running VisuAlgo, all the necessary libraries must be installed or els
 
 * Then users can select from `BFS` or `DFS`
 
-![option](readme_files/option.png)
+![option](readme_files/option.jpg)
 
 * DFS
 
