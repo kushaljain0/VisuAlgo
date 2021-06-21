@@ -442,7 +442,7 @@ def restart():
                     else:
                         pathfound.play()
                         Tk().wm_withdraw()
-                        messagebox.showinfo("Path Found","Hurrah! There exists a path.")
+                        messagebox.showinfo("Path Found","Hurrah! Path found.")
                         Tk().wm_withdraw()
                         result=messagebox.askquestion("Restart", "Do you want to restart ?",icon='warning')
                         if result == 'yes':
