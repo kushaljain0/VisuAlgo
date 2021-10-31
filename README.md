@@ -6,9 +6,9 @@
 
 # VisuAlgo : A path-finding visualization tool 
 
-A tool for visualizing the working of famous path finding algorithms like BFS(breadth first search) and DFS(depth first search) , with the following functionalities
-* User can choose start and end point
-* User can build walls 
+A tool for visualizing the working of famous path finding algorithms like BFS(breadth first search) and DFS(depth first search) , with the following functionalities:
+* User can choose start and end points.
+* User can build walls. 
 
 ## Requirements
 * [Python3](https://www.python.org/)
@@ -23,7 +23,7 @@ A tool for visualizing the working of famous path finding algorithms like BFS(br
 Download or clone the repository. Then run the following command in the downloaded directory.
 > python VisuAlgo.py
 
-Note: For running VisuAlgo, all the necessary libraries must be installed or else , click [here](https://drive.google.com/file/d/1CEI5kGXMa2iAeE08iS-hnM4kIWZzKri0/view?usp=sharing) for `.exe` file
+Note: For running VisuAlgo, all the necessary libraries must be installed or else it will not execute, click [here](https://drive.google.com/file/d/1CEI5kGXMa2iAeE08iS-hnM4kIWZzKri0/view?usp=sharing) for `.exe` (executable) file.
 
 
 ## Instructions 
@@ -65,4 +65,4 @@ Note: For running VisuAlgo, all the necessary libraries must be installed or els
   ![bfs](https://upload.wikimedia.org/wikipedia/commons/5/5d/Breadth-First-Search-Algorithm.gif)
   
   ### Contributions
-   We welcome all kinds of contributions from the open-source community.
+   We welcome all kinds of contributions from the open-source community, please share your feedback and/or comments.
